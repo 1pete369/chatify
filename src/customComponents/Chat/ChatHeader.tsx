@@ -13,13 +13,11 @@ import { useChatContext } from "@/context/useChatContext"
 import SelectedUserSkeleton from "@/skeletons/SelectedUserSkeleton"
 import { ArrowLeft, User, XIcon } from "lucide-react"
 import Image from "next/image"
-import React, { useState } from "react"
 import Sidebar from "../Sidebar"
 
 export default function ChatHeader() {
   const { selectedUser } = useChatContext()
   const { onlineUsers } = useAuthContext()
-  const [open, setOpen] = useState(true) // Sheet will be open by default
 
 
   if (!selectedUser)

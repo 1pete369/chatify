@@ -1,13 +1,13 @@
 "use client"
 
 import { useAuthContext } from "@/context/useAuthContext"
+import { signupDataType } from "@/types/authTypes"
 import { validateEmail, validatePassword } from "@/utils/authFormValidators"
+import { Loader2 } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
 import { redirect } from "next/navigation"
-import React, { ChangeEvent, FormEvent, useState } from "react"
-import Image from "next/image"
-import { signupDataType } from "@/types/authTypes"
-import { Loader2 } from "lucide-react"
+import { ChangeEvent, FormEvent, useState } from "react"
 
 export default function SignUpPage() {
   const { authUser, isSigningUp, signup } = useAuthContext()
@@ -20,7 +20,6 @@ export default function SignUpPage() {
   const [nameError, setNameError] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [loading, setLoading] = useState(false)
   const [mainError, setMainError] = useState("")
   const [emailError, setEmailError] = useState("")
   const [passwordError, setPasswordError] = useState("")
@@ -133,7 +132,7 @@ export default function SignUpPage() {
         </button>
         {mainError && <p className="text-error text-sm mt-1">{mainError}</p>}
         <span>
-          Have an account? {" "}
+          Have an account?
           <Link href="/login" className="underline text-sm">
             Login
           </Link>

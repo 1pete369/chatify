@@ -2,7 +2,7 @@
 
 import { axiosInstance } from "@/lib/axios"
 import { authUserDataType } from "@/types/authTypes"
-import { MessageData } from "@/types/chatTypes"
+import { Message, MessageData } from "@/types/chatTypes"
 import {
   createContext,
   Dispatch,
@@ -14,8 +14,8 @@ import toast from "react-hot-toast"
 import { useAuthContext } from "./useAuthContext"
 
 type ChatContextType = {
-  users: never[]
-  messages: never[]
+  users: authUserDataType[]
+  messages: Message[]
   isMessagesLoading: boolean
   isUsersLoading: boolean
   selectedUser: authUserDataType | null
@@ -25,7 +25,7 @@ type ChatContextType = {
   sendMessage: (messageData: MessageData) => Promise<void>
   subscribeToMessages: () => void
   unSubscribeFromMessages: () => void
-  setUsers :  Dispatch<SetStateAction<never[]>>
+  setUsers: Dispatch<SetStateAction<authUserDataType[]>>
 }
 
 const chatContext = createContext<ChatContextType | null>(null)
@@ -35,8 +35,8 @@ export function ChatContextProvider({
 }: {
   children: React.ReactNode
 }) {
-  const [users, setUsers] = useState([])
-  const [messages, setMessages] = useState<any | []>([])
+  const [users, setUsers] = useState<authUserDataType[] | []>([])
+  const [messages, setMessages] = useState<Message[] | []>([])
   const [isMessagesLoading, setIsMessagesLoading] = useState(false)
   const [isUsersLoading, setIsUsersLoading] = useState(false)
   const [selectedUser, setSelectedUser] = useState<authUserDataType | null>(
@@ -52,7 +52,7 @@ export function ChatContextProvider({
       const response = await axiosInstance.get("/messages/users")
       setUsers(response.data)
     } catch (error) {
-      // @ts-ignore
+      // @ts-expect-error
       toast.error(error.response.data.message)
     } finally {
       setIsUsersLoading(false)
@@ -65,7 +65,7 @@ export function ChatContextProvider({
       const response = await axiosInstance.get(`/messages/${userId}`)
       setMessages(response.data)
     } catch (error) {
-      // @ts-ignore
+      // @ts-expect-error
       toast.error(error.response.data.message)
     } finally {
       setIsMessagesLoading(false)
@@ -81,7 +81,7 @@ export function ChatContextProvider({
       )
       setMessages([...messages, res.data])
     } catch (error) {
-      // @ts-ignore
+      // @ts-expect-error
       toast.error(error.response.data.message)
     }
   }
@@ -89,10 +89,10 @@ export function ChatContextProvider({
   const subscribeToMessages = () => {
     const socket = webSocket
     socket?.on("newMessage", (newMessage) => {
+      const isMessageSentFromSelectedUser =
+        newMessage.senderId === selectedUser?._id
+      if (!isMessageSentFromSelectedUser) return
 
-      const isMessageSentFromSelectedUser = newMessage.senderId === selectedUser?._id
-      if(!isMessageSentFromSelectedUser) return
- 
       setMessages((prevMessages: any) => [...prevMessages, newMessage])
     })
   }
@@ -115,7 +115,8 @@ export function ChatContextProvider({
         getMessages,
         sendMessage,
         subscribeToMessages,
-        unSubscribeFromMessages,setUsers
+        unSubscribeFromMessages,
+        setUsers
       }}
     >
       {children}

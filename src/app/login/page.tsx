@@ -6,7 +6,7 @@ import { Loader2 } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { redirect } from "next/navigation"
-import React, { ChangeEvent, FormEvent, useState } from "react"
+import { ChangeEvent, FormEvent, useState } from "react"
 
 export default function LoginPage() {
   const { authUser, login, isLoggingIn } = useAuthContext()
@@ -20,7 +20,6 @@ export default function LoginPage() {
   const [emailError, setEmailError] = useState("")
   const [passwordError, setPasswordError] = useState("")
   const [mainError, setMainError] = useState("")
-  const [loading, setLoading] = useState(false)
 
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -115,7 +114,7 @@ export default function LoginPage() {
         </button>
         {mainError && <p className="text-error text-sm mt-2">{mainError}</p>}
         <span className="text-sm">
-          Don't have an account?{" "}
+          Don't have an account?
           <Link href={"/signup"} className="underline">
             Signup
           </Link>

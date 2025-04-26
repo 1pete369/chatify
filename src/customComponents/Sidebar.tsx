@@ -8,10 +8,10 @@ import { authUserDataType } from "@/types/authTypes"
 import { PowerOff, User, Users } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { ChangeEvent, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 
 export default function Sidebar() {
-  const { isUsersLoading, users, getUsers, setUsers, setSelectedUser } =
+  const { isUsersLoading, users, getUsers, setSelectedUser } =
     useChatContext()
   const [onlyOnlineUsers, setOnlyOnlineUsers] = useState(false)
 

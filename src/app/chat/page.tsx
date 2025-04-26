@@ -4,7 +4,7 @@ import { useAuthContext } from "@/context/useAuthContext"
 import Chat from "@/customComponents/Chat"
 import { redirect } from "next/navigation"
 
-export default function page() {
+export default function ChatPage() {
   const { authUser } = useAuthContext()
 
   if (!authUser) {

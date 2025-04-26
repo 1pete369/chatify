@@ -1,10 +1,11 @@
 "use server"
 import {
-  S3Client,
+  DeleteObjectCommand,
   PutObjectCommand,
-  DeleteObjectCommand
+  S3Client
 } from "@aws-sdk/client-s3"
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
+import crypto from "crypto"
 
 const s3Client = new S3Client({
   region: process.env.NEXT_PUBLIC_AWS_BUCKET_REGION!,
@@ -13,7 +14,6 @@ const s3Client = new S3Client({
     secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY!
   }
 })
-import crypto from "crypto"
 
 const generateFileName = (bytes = 32) =>
   crypto.randomBytes(bytes).toString("hex")
@@ -27,7 +27,6 @@ const acceptedTypes = [
   "video/webm"
 ]
 
-const maxFileSize = 1024 * 1024 * 1
 
 const profileMaxFileSize = 1024 * 1024 * 1
 const chatMediaMaxFileSize = 1024 * 1024 * 5

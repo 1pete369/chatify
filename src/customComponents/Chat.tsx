@@ -1,12 +1,6 @@
 "use client"
 
-import { useAuthContext } from "@/context/useAuthContext"
-import { useChatContext } from "@/context/useChatContext"
-import ChatBoxContainer from "@/customComponents/ChatBoxContainer"
-import EmptyChatBox from "@/customComponents/EmptyChatBox"
-import Sidebar from "@/customComponents/Sidebar"
-import { redirect } from "next/navigation"
-import React, { useState } from "react"
+import { Button } from "@/components/ui/button"
 import {
   Sheet,
   SheetClose,
@@ -16,8 +10,14 @@ import {
   SheetTitle,
   SheetTrigger
 } from "@/components/ui/sheet"
-import { Button } from "@/components/ui/button"
-import { ArrowLeft, Menu, XIcon } from "lucide-react"
+import { useAuthContext } from "@/context/useAuthContext"
+import { useChatContext } from "@/context/useChatContext"
+import ChatBoxContainer from "@/customComponents/ChatBoxContainer"
+import EmptyChatBox from "@/customComponents/EmptyChatBox"
+import Sidebar from "@/customComponents/Sidebar"
+import { Menu, XIcon } from "lucide-react"
+import { redirect } from "next/navigation"
+import { useState } from "react"
 
 export default function Chat() {
   const { authUser } = useAuthContext()

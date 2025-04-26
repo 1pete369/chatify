@@ -5,7 +5,6 @@ import { ArrowLeft, PowerOff } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import React, { useEffect } from "react"
 
 export default function Navbar() {
   const { authUser, logout } = useAuthContext()

@@ -111,7 +111,7 @@ export function AuthContextProvider({
       console.log("after toast")
     } catch (error) {
       console.log(error)
-      //@ts-ignore
+      // @ts-expect-error
       toast.error(error.response.data.message)
     } finally {
       setIsSigningUp(false)
@@ -127,7 +127,7 @@ export function AuthContextProvider({
       connectSocket(response.data)
     } catch (error) {
       console.log(error)
-      //@ts-ignore
+      // @ts-expect-error
       toast.error(error.response.data.message)
     } finally {
       setIsLoggingIn(false)
@@ -153,7 +153,7 @@ export function AuthContextProvider({
       toast.success("Profile updated successfully!")
     } catch (error) {
       console.log(error)
-      //@ts-ignore
+      // @ts-expect-error
       toast.error(error.response.data.message)
     }
   }

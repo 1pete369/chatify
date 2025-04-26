@@ -8,7 +8,7 @@ import { Inter } from "next/font/google"
 
 const inter = Inter({ subsets: ["latin"] })
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Chatify",
   description: "Chat in style!"
 }
@@ -20,7 +20,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body suppressHydrationWarning className={`bg-neutral-800 text-white ${inter.className}`}>
+      <body
+        suppressHydrationWarning
+        className={`bg-neutral-800 text-white ${inter.className}`}
+      >
         <AuthContextProvider>
           <Navbar />
           <ChatContextProvider>{children}</ChatContextProvider>

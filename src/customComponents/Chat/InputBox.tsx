@@ -1,23 +1,31 @@
-
 // InputBox.tsx
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
-import { Plus, ImageIcon, Send } from "lucide-react"
-import Image from "next/image"
-import React, { ChangeEvent, FormEvent, useRef, useState, useEffect } from "react"
-import { buildStyles, CircularProgressbar } from "react-circular-progressbar"
-import { handleUpload } from "../FileUploader"
 import { useAuthContext } from "@/context/useAuthContext"
 import { useChatContext } from "@/context/useChatContext"
 import { MessageData } from "@/types/chatTypes"
+import { ImageIcon, Plus, Send } from "lucide-react"
+import Image from "next/image"
+import React, {
+  ChangeEvent,
+  FormEvent,
+  useEffect,
+  useRef,
+  useState
+} from "react"
+import { buildStyles, CircularProgressbar } from "react-circular-progressbar"
 import toast from "react-hot-toast"
+import { handleUpload } from "../FileUploader"
 
 interface InputBoxProps {
   droppedFile: File | null
   setDroppedFile: React.Dispatch<React.SetStateAction<File | null>>
 }
 
-export default function InputBox({ droppedFile, setDroppedFile }: InputBoxProps) {
+export default function InputBox({
+  droppedFile,
+  setDroppedFile
+}: InputBoxProps) {
   const { authUser } = useAuthContext()
   const { sendMessage } = useChatContext()
 
@@ -71,14 +79,19 @@ export default function InputBox({ droppedFile, setDroppedFile }: InputBoxProps)
     if (!media || !authUser) return
     try {
       setIsMediaUploading(true)
-      const result = await handleUpload(media, authUser._id, setProgress, "chatMedia")
+      const result = await handleUpload(
+        media,
+        authUser._id,
+        setProgress,
+        "chatMedia"
+      )
       if (result?.success) {
         return result.data?.media as string
       } else {
         toast.error(result?.message as string)
       }
-    } catch (error: any) {
-      toast.error(error.message)
+    } catch (error: unknown) {
+      if (error instanceof Error) toast.error(error.message)
     } finally {
       setIsMediaUploading(false)
     }
@@ -111,9 +124,17 @@ export default function InputBox({ droppedFile, setDroppedFile }: InputBoxProps)
 
   return (
     <div
-      className={`relative w-full border-t ${isDragging ? "border-blue-400" : "border-white"} px-2 py-2`}
-      onDragEnter={(e) => { e.preventDefault(); setIsDragging(true) }}
-      onDragLeave={(e) => { e.preventDefault(); setIsDragging(false) }}
+      className={`relative w-full border-t ${
+        isDragging ? "border-blue-400" : "border-white"
+      } px-2 py-2`}
+      onDragEnter={(e) => {
+        e.preventDefault()
+        setIsDragging(true)
+      }}
+      onDragLeave={(e) => {
+        e.preventDefault()
+        setIsDragging(false)
+      }}
       onDragOver={(e) => e.preventDefault()}
       onDrop={(e) => {
         e.preventDefault()
@@ -122,7 +143,10 @@ export default function InputBox({ droppedFile, setDroppedFile }: InputBoxProps)
         if (file) handleSelectedFile(file)
       }}
     >
-      <form className="relative flex items-center gap-2" onSubmit={handleSendMessage}>
+      <form
+        className="relative flex items-center gap-2"
+        onSubmit={handleSendMessage}
+      >
         {/* Preview */}
         {media && mediaPreviewUrl && (
           <div className="absolute h-40 w-40 bg-slate-800 flex justify-center items-center -top-[170px] rounded-lg">
@@ -136,7 +160,12 @@ export default function InputBox({ droppedFile, setDroppedFile }: InputBoxProps)
               />
             )}
             {mediaType === "video" && (
-              <video autoPlay muted loop className="rounded-lg h-36 shrink-0 object-contain">
+              <video
+                autoPlay
+                muted
+                loop
+                className="rounded-lg h-36 shrink-0 object-contain"
+              >
                 <source src={mediaPreviewUrl} />
               </video>
             )}
@@ -155,18 +184,27 @@ export default function InputBox({ droppedFile, setDroppedFile }: InputBoxProps)
                   value={progress}
                   strokeWidth={10}
                   background={false}
-                  styles={buildStyles({ strokeLinecap: "round", pathColor: "#0af0af", trailColor: "transparent" })}
+                  styles={buildStyles({
+                    strokeLinecap: "round",
+                    pathColor: "#0af0af",
+                    trailColor: "transparent"
+                  })}
                   className="absolute inset-14"
                 />
               </div>
             )}
-            <Button onClick={removeMedia} className="absolute top-2 right-1 h-4 w-4 p-0">
+            <Button
+              onClick={removeMedia}
+              className="absolute top-2 right-1 h-4 w-4 p-0"
+            >
               <Plus size={10} className="rotate-45 text-white" />
             </Button>
           </div>
         )}
 
-        <Label htmlFor="messageBox" className="sr-only">Message</Label>
+        <Label htmlFor="messageBox" className="sr-only">
+          Message
+        </Label>
         <input
           id="messageBox"
           ref={inputRef}
@@ -177,7 +215,9 @@ export default function InputBox({ droppedFile, setDroppedFile }: InputBoxProps)
           onKeyDown={(e) => {
             if (e.key === "Enter" && !e.shiftKey) {
               e.preventDefault()
-              e.currentTarget.form?.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }))
+              e.currentTarget.form?.dispatchEvent(
+                new Event("submit", { cancelable: true, bubbles: true })
+              )
             }
           }}
           value={text}
@@ -186,8 +226,15 @@ export default function InputBox({ droppedFile, setDroppedFile }: InputBoxProps)
         />
 
         {/* File picker */}
-        <div className={`relative h-12 w-12 rounded-sm ${mediaPreviewUrl ? "bg-green-500" : "bg-violet-500"}`}>  
-          <Label htmlFor="upload-image" className="absolute inset-0 flex items-center justify-center cursor-pointer">
+        <div
+          className={`relative h-12 w-12 rounded-sm ${
+            mediaPreviewUrl ? "bg-green-500" : "bg-violet-500"
+          }`}
+        >
+          <Label
+            htmlFor="upload-image"
+            className="absolute inset-0 flex items-center justify-center cursor-pointer"
+          >
             <input
               type="file"
               id="upload-image"

@@ -114,7 +114,7 @@ export default function LoginPage() {
         </button>
         {mainError && <p className="text-error text-sm mt-2">{mainError}</p>}
         <span className="text-sm">
-          Don't have an account?
+          Don&apos;t have an account?
           <Link href={"/signup"} className="underline">
             Signup
           </Link>
@@ -141,7 +141,7 @@ export default function LoginPage() {
           <li>All in a simple and secure way</li>
         </ul>
         <p className="text-sm italic text-neutral-500 text-center max-w-sm">
-          "Great conversations start here 💬"
+        &quot;Great conversations start here 💬&quot;
         </p>
       </div>
     </div>

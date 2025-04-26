@@ -52,7 +52,7 @@ export function ChatContextProvider({
       const response = await axiosInstance.get("/messages/users")
       setUsers(response.data)
     } catch (error) {
-      // @ts-expect-error
+      // @ts-expect-error because xyz reason
       toast.error(error.response.data.message)
     } finally {
       setIsUsersLoading(false)
@@ -65,7 +65,7 @@ export function ChatContextProvider({
       const response = await axiosInstance.get(`/messages/${userId}`)
       setMessages(response.data)
     } catch (error) {
-      // @ts-expect-error
+      // @ts-expect-error because xyz reason
       toast.error(error.response.data.message)
     } finally {
       setIsMessagesLoading(false)
@@ -81,7 +81,7 @@ export function ChatContextProvider({
       )
       setMessages([...messages, res.data])
     } catch (error) {
-      // @ts-expect-error
+      // @ts-expect-error because xyz reason
       toast.error(error.response.data.message)
     }
   }

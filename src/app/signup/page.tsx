@@ -162,7 +162,7 @@ export default function SignUpPage() {
           <li>Free forever — always</li>
         </ul>
         <p className="text-sm italic text-neutral-500 text-center max-w-sm">
-          "The best place to chat, laugh, and vibe ✨"
+        &quot;The best place to chat, laugh, and vibe ✨&quot;
         </p>
       </div>
     </div>

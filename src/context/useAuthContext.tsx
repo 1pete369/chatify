@@ -20,7 +20,7 @@ type authContextType = {
   isCheckingAuth: boolean
   isUpdatingProfile: boolean
   setIsUpdatingProfile: React.Dispatch<React.SetStateAction<boolean>>
-  authUser: any
+  authUser: authUserDataType | null
   checkAuth: () => Promise<void>
   isSigningUp: boolean
   signup: (data: signupDataType) => Promise<void>
@@ -111,7 +111,7 @@ export function AuthContextProvider({
       console.log("after toast")
     } catch (error) {
       console.log(error)
-      // @ts-expect-error
+      // @ts-expect-error because xyz reason
       toast.error(error.response.data.message)
     } finally {
       setIsSigningUp(false)
@@ -127,7 +127,7 @@ export function AuthContextProvider({
       connectSocket(response.data)
     } catch (error) {
       console.log(error)
-      // @ts-expect-error
+      // @ts-expect-error because xyz reason
       toast.error(error.response.data.message)
     } finally {
       setIsLoggingIn(false)
@@ -141,7 +141,7 @@ export function AuthContextProvider({
       toast.success("Account logged out!")
       disconnectSocket()
     } catch (error) {
-      // @ts-ignore
+      // @ts-expect-error because xyz reason
       toast.error(error.response.data.message)
     }
   }
@@ -153,7 +153,7 @@ export function AuthContextProvider({
       toast.success("Profile updated successfully!")
     } catch (error) {
       console.log(error)
-      // @ts-expect-error
+      // @ts-expect-error because xyz reason
       toast.error(error.response.data.message)
     }
   }

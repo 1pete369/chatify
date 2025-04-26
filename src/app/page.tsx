@@ -5,7 +5,7 @@ import { useAuthContext } from "@/context/useAuthContext"
 import { redirect } from "next/navigation"
 import toast from "react-hot-toast"
 
-export default function page() {
+export default function HomePage() {
   const { authUser } = useAuthContext()
 
   if (!authUser) {

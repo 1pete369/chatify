@@ -109,8 +109,8 @@ export default function InputBox({
         mediaUrl: uploadedUrl as string
       }
       await sendMessage(messageData)
-    } catch (error: any) {
-      toast.error(error.message)
+    } catch (error: unknown) {
+      if (error instanceof Error) toast.error(error.message)
     } finally {
       setText("")
       removeMedia()

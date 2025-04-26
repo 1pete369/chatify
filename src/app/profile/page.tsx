@@ -17,7 +17,7 @@ export default function ProfilePage() {
     updateProfile,
     setIsUpdatingProfile
   }: {
-    authUser: authUserDataType
+    authUser: authUserDataType | null
     isUpdatingProfile: boolean
     updateProfile: (data: { media: string }) => Promise<void>
     setIsUpdatingProfile: React.Dispatch<React.SetStateAction<boolean>>

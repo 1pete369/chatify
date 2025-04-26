@@ -35,8 +35,8 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
 
         {/* Favicon or Icons */}
-        <link rel="icon" href="/icon.png" />
-        <link rel="apple-touch-icon" href="/icon.png" />
+        <link rel="icon" href="/logo.png" />
+        <link rel="apple-touch-icon" href="/logo.png" />
       </head>
       <body
         suppressHydrationWarning

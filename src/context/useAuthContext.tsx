@@ -57,7 +57,7 @@ export function AuthContextProvider({
     if (!user || webSocket?.connected) return
 
     console.log("Came to socket")
-    const socket = io("http://localhost:5001",{
+    const socket = io(process.env.NEXT_PUBLIC_BASE_URL!,{
       query:{
         userId : user._id
       }

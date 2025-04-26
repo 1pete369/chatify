@@ -7,12 +7,7 @@ import {
   signupDataType
 } from "@/types/authTypes"
 import { Loader2 } from "lucide-react"
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useState
-} from "react"
+import React, { createContext, useContext, useEffect, useState } from "react"
 import toast from "react-hot-toast"
 import { io, Socket } from "socket.io-client"
 
@@ -29,7 +24,7 @@ type authContextType = {
   logout: () => Promise<void>
   updateProfile: (data: { media: string }) => Promise<void>
   onlineUsers: string[]
-  webSocket : Socket | null
+  webSocket: Socket | null
 }
 
 const authContext = createContext<authContextType | null>(null)
@@ -57,26 +52,24 @@ export function AuthContextProvider({
     if (!user || webSocket?.connected) return
 
     console.log("Came to socket")
-    const socket = io(process.env.NEXT_PUBLIC_BASE_URL!,{
-      query:{
-        userId : user._id
+    const socket = io(process.env.NEXT_PUBLIC_BASE_URL!, {
+      query: {
+        userId: user._id
       }
     })
     socket.connect()
     console.log("Connected socket", socket)
     setWebSocket(socket)
 
-    socket?.on("getOnlineUsers",(userIds)=>{
+    socket?.on("getOnlineUsers", (userIds) => {
       console.log("online users", userIds)
       setOnlineUsers(userIds)
     })
   }
-  
-  
 
   const disconnectSocket = () => {
     if (webSocket?.connected) webSocket.disconnect()
-    }
+  }
 
   const checkAuth = async () => {
     try {
@@ -84,7 +77,7 @@ export function AuthContextProvider({
       if (response) {
         setAuthUser(response.data)
         console.log("response", response)
-        connectSocket(response.data) 
+        connectSocket(response.data)
       } else {
         setAuthUser(null)
       }
@@ -136,7 +129,7 @@ export function AuthContextProvider({
 
   const logout = async () => {
     try {
-      axiosInstance.post("/auth/logout")
+      await axiosInstance.post("/auth/logout")
       setAuthUser(null)
       toast.success("Account logged out!")
       disconnectSocket()
@@ -184,7 +177,8 @@ export function AuthContextProvider({
         updateProfile,
         isUpdatingProfile,
         setIsUpdatingProfile,
-        onlineUsers,webSocket
+        onlineUsers,
+        webSocket
       }}
     >
       {children}

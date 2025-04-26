@@ -3,13 +3,14 @@ self.addEventListener('install', (event) => {
       caches.open('chatify-cache').then((cache) => {
         return cache.addAll([
           '/',
-          '/index.html',
           '/manifest.json',
           '/logo.png',
-        //   '/icon-192x192.png',
-        //   '/icon-512x512.png',
-          // Add other essential files here
+          '/icon-192x192.png',
+          '/icon-512x512.png',
+          // Only cache files you know exist inside /public
         ]);
+      }).catch((error) => {
+        console.error('Caching failed:', error);
       })
     );
   });

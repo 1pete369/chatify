@@ -25,7 +25,7 @@ export default function SignUpPage() {
   const [passwordError, setPasswordError] = useState("")
 
   const handleName = (e: ChangeEvent<HTMLInputElement>) => {
-    const name = e.target.value.trim()
+    const name = e.target.value
     setName(name)
     const error = name.length >= 2 ? "" : "Name must be at least 2 letters"
     setNameError(error)
@@ -53,7 +53,7 @@ export default function SignUpPage() {
       return
     }
     const data: signupDataType = {
-      fullName: name,
+      fullName: name.trim(),
       email,
       password
     }

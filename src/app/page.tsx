@@ -13,8 +13,8 @@ export default function HomePage() {
   }
 
   return (
-    <div className=" min-h-screen flex items-center justify-center overflow-hidden">
-      <Button onClick={()=>{toast.success("you are home")}} className="bg-secondary-800 hover:bg-secondary-500">
+    <div className="h-[calc(100vh-81px)] flex items-center justify-center overflow-hidden">
+      <Button onClick={()=>{toast.success(`Hello , ${authUser.fullName}`)}} className="bg-secondary-800 hover:bg-secondary-500">
         Click me
       </Button>
     </div>
